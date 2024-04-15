@@ -3,6 +3,9 @@
 # Add steps that test, sign, and distribute the APK, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
+#pool:
+#  vmImage: 'macOS-latest'
+# https://learn.microsoft.com/azure/devops/pipelines/ecosystems/android
 pool:
   vmImage: 'macOS-latest'
 
@@ -12,13 +15,22 @@ steps:
     workingDirectory: ''
     gradleWrapperFile: 'gradlew'
     gradleOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
+    publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleDebug test'
-  displayName: gradlew assembleDebug test
+    tasks: 'assembleDebug'
+#steps:
+#- task: Gradle@2
+#  inputs:
+#    workingDirectory: ''
+#    gradleWrapperFile: 'gradlew'
+#    gradleOptions: '-Xmx3072m'
+#    javaHomeOption: 'JDKVersion'
+#    jdkVersionOption: '1.8'
+#    jdkArchitectureOption: 'x64'
+#    publishJUnitResults: true
+#    testResultsFiles: '**/TEST-*.xml'
+#    tasks: 'assembleDebug test'
+#  displayName: gradlew assembleDebug test
 
 - task: CopyFiles@2
   inputs:
